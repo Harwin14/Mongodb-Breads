@@ -31,9 +31,9 @@ module.exports = function (db) {
     noSql += '}'
     noSql = JSON.parse(noSql)
 
-    if (req.query.id && req.query.idFilters == 'on') {
-      params.push({ "_id": ObjectId(`${req.params.id}`) })
-    }
+    // if (req.query.id && req.query.idFilters == 'on') {
+    //   params.push({ "_id": ObjectId(`${req.params.id}`) })
+    // }
     if (req.query.string && req.query.stringFilters == 'on') {
       params.push(`"string" : ${req.query.string}`)
     }
@@ -73,7 +73,10 @@ module.exports = function (db) {
     })
     
   });
-
+  router.get('/add', (req, res) => {
+    res.render
+  })
+  
   return router;
 
 }

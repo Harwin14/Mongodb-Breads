@@ -10,7 +10,7 @@
                 <form action="" method="get">
                     <input type="hidden" name="page" value="1">
                     <div class="row mb-3 form-switch">
-                        <input class="form-check-input" type="checkbox" name="dtringFilters" <%=query.dtringFilters=='on'
+                        <input class="form-check-input" type="checkbox" name="stringFilters" <%=query.dtringFilters=='on'
                             ? 'checked' : '' %> >
                         <label for="string" class="form-check-label col-sm-2">String</label>
                         <div class="col-sm-10">
@@ -78,9 +78,9 @@
 
                 <thead>
                     <tr>
-                        <th>
+                        <!-- <th>
                             ID
-                        </th>
+                        </th> -->
 
 
                         <th>
@@ -134,9 +134,9 @@
                 <tbody>
                     <% data.forEach((item, index) => { %>
                         <tr>
-                            <td>
+                            <!-- <td>
                                 <%=item._id%>
-                            </td>
+                            </td> -->
                             <td>
                                 <%=item.string%>
                             </td>
@@ -165,7 +165,7 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="/add" class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> ADD</a>
+                        <a href="/add" class="btn btn-primary"><i class="fa-solid fa-square-plus"></i> ADD</a>
                     </div>
                     <div class="col-md-10">
                         <nav aria-label="...">
