@@ -144,7 +144,7 @@ main().then((db) => {
   }).catch ((err) =>  {
     console.log('gagal bruh', err)
   })
-
+// sudo kill -9 `sudo lsof -t -i:3000`
 
 
 

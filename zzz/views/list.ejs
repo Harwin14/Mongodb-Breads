@@ -1,203 +1,166 @@
 <%- include('partials/header') %>
-    <div class="container mt-3">
-        <div class="card">
-            <div class="card-header text-center">
-                <br>
-                <h1>BREAD (Browse, Read, Edit, Add, Delete)</h1>
-                <br>
-            </div>
-            <div class="card-body">
-                <form action="" method="get">
-                    <input type="hidden" name="page" value="1">
-                    <div class="row mb-3 form-switch">
-                        <input class="form-check-input" type="checkbox" name="stringFilters" <%=query.dtringFilters=='on'
-                            ? 'checked' : '' %> >
-                        <label for="string" class="form-check-label col-sm-2">String</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="string" placeholder="Tulis String"
-                                value="<%=query.string != 'undefined' ? query.string : '' %>">
+
+
+    <div class="card " style="background-color: #edf7fa;">
+        <div class="card-header text-center" >
+            <h1>BREAD(Browse, Read, Edit, Add, Delete)</h1>
+        </div>
+        <div class="card-body">
+
+
+            <!-- =================FORM================= -->
+            <form action="" method="get">
+                <input type="hidden" name="page" value="1">
+                <div>
+                    <!-- =========STRING========= -->
+                    <div class="row mb-3  form-switch">
+                        <input class="form-check-input" name="stringFilters" type="checkbox" id="filters"
+                            <%=query.stringFilters=='on' ? 'checked' : '' %>>
+                        <label class="form-check-label col-sm-2" for="string">String</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" name="string" type="text" placeholder=" String "
+                                value="<%= query.string %>">
                         </div>
                     </div>
-
+                    <!-- ==========INTEGER========= -->
                     <div class="row mb-3 form-switch">
-                        <input class="form-check-input" type="checkbox" name="integerFilters" <%=query.integerFilters=='on'
-                            ? 'checked' : '' %> >
-                        <label for="integer" class="form-check-label col-sm-2">Integer</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" name="integer" placeholder="Tulis Integer"
-                                value="<%=query.integer%>">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3 form-switch">
-                        <input class="form-check-input" type="checkbox" name="floatCheck" <%=query.floatFilters=='on'
+                        <input class="form-check-input" name="integerFilters" type="checkbox" id="filters" <%=query.integerFilters=='on'
                             ? 'checked' : '' %>>
-                        <label for="float" class="form-check-label col-sm-2">Float</label>
-                        <div class="col-sm-10">
-                            <input type="number" name="float" class="form-control" placeholder="Tulis Float"
-                                step="0.005" value="<%=query.float%>">
+                        <label class="form-check-label col-sm-2" for="integer">Integer</label>
+
+                        <div class="col-sm-8">
+                            <input class="form-control" name="integer" type="number" placeholder=" Integer "
+                                id="integer" value="<%= query.integer %>">
+                        </div>
+                    </div>
+                    <!--============FLOAT============= -->
+                    <div class="row mb-3 form-switch">
+                            <input class="form-check-input" name="floatFilters" type="checkbox" <%=query.floatFilters=='on' ? 'checked' : '' %>>
+                            <label class="form-check-label col-sm-2" for="float">Float</label>
+                
+                        <div class="col-sm-8">
+                            <input class="form-control" name="float" type="number" step="0.05" placeholder="Float"
+                                value="<%= query.float %>">
+                        </div>
+                    </div>
+                    <!-- ============DATE============ -->
+                    <div class="row mb-3 form-switch">
+                            <input class="form-check-input" name="dateFilters" type="checkbox" <%=query.dateFilters=='on' ? 'checked' : '' %>>
+                            <label class="form-check-label col-sm-2" for="date">date</label>
+                        <div class="col-sm-3">
+                            <div>
+                                <input class="form-control" name="startDate" type="date" placeholder="start date"
+                                    value="<%= query.startDate %>">
+                                to
+                                <input class="form-control" name="endDate" type="date" placeholder="end date"
+                                    value="<%= query.endDate%>">
+                            </div>
                         </div>
                     </div>
 
+                    <!-- ===========BOOLEAN============= -->
                     <div class="row mb-3 form-switch">
-                        <input class="form-check-input" type="checkbox" name="dateFilters" <%=query.dateFilters=='on'
-                            ? 'checked' : '' %> >
-                        <label for="date" class="form-check-label col-sm-2" for="date">Date</label>
-                        <div class="col-sm-2">
-                            <input type="date" name="startDate" class="form-control" placeholder="Tulis Date"
-                                value="<%=query.startDate%>">
-                            <label class="col-sm-2 col-form-label">to</label>
-                            <input type="date" name="endDate" class="form-control" placeholder="Tulis Date"
-                                value="<%=query.endDate%>">
-                        </div>
-                    </div>
-
-
-
-                    <div class="row mb-3 form-switch">
-                        <input class="form-check-input" type="checkbox" name="booleanFilters" <%=query.booleanFilters=='on'
-                            ? 'checked' : '' %> >
-                        <label for="boolean" class="form-check-label col-sm-2">Boolean</label>
-                        <div class="col-sm-10">
-                            <select id="boolean" name="boolean" class="form-select">
-                                <option value="" disabled selected>--Choose Boolean--</option>
-                                <option value=1 <%=query.boolean==1 ? ' selected ' : '' %>>True</option>
-                                <option value=0 <%=query.boolean==0 ? ' selected ' : '' %>>False</option>
+                            <input class="form-check-input" name="booleanFilters" type="checkbox" <%=query.booleanFilters=='on' ? 'checked' : ''
+                                %>>
+                            <label class="form-check-label col-sm-2" for="boolean">Boolean</label>
+ 
+                        <div class="col-sm-8">
+                            <select class="form-control" class="input" name="boolean" id="filters">
+                                <option value="" selected disabled> Choose the Boolean...</option>
+                                <option value="true" <%=query.boolean=='true' ? 'selected' : '' %>>true</option>
+                                <option value="false" <%=query.boolean=='false' ? 'selected' : '' %>>false</option>
                             </select>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Cari</button>
-                        <a href="/" class="btn btn-warning">Reset</a>
+                    <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-primary " type="submit"><i class="fa-solid fa-magnifying-glass" title="Search"></i></button> 
+                        <button class="btn btn-warning" type="submit" href="/"><i class="fa-sharp fa-solid fa-rotate-left" title="Reset"></i></button>
                     </div>
-                </form>
-                <br>
-            </div>
 
+            </form>
+
+        </div>
+
+
+
+        <!-- =============tabel================== -->
+        <div>
             <table class="table table-striped">
-
                 <thead>
                     <tr>
-                        <!-- <th>
+                        <th>
                             ID
-                        </th> -->
-
-
-                        <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'string' && orderBy ==1 ? "&sortBy=string&orderBy=-1" : "&sortBy=string&orderBy=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'string' ? query.orderBy ==1 ? 'arrow-up-a-z' : 'arrow-up-z-a' : 'sort' %>"></i>
-                                String
-                            </a>
                         </th>
-
-
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'integer' && orderBy ==1 ? "&sortBy=integer&orderBy=-1" : "&sortBy=integer&orderBy=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'integer' ? query.orderBy ==1 ? 'arrow-up-1-9' : 'arrow-up-9-1' : 'sort' %>"></i>
-                                Integer
-                            </a>
-                        </th>
 
+                            String
 
-                        <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'float' && orderBy == 1 ? "&sortBy=float&orderBy=-1" : "&sortBy=float&orderBy=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'float' ? query.orderBy == 1 ? 'arrow-up-1-9' : 'arrow-up-9-1' : 'sort' %>"></i>
-                                Float
-                            </a>
                         </th>
 
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'date' && orderBy == 1 ? "&sortBy=date&orderBy=-1" : "&sortBy=date&orderBy=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'date' ? query.orderBy == 1 ? 'arrow-up-short-wide' : 'arrow-up-wide-short' : 'sort' %>"></i>
-                                Date
+                            Integer
                             </a>
                         </th>
-
-
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'boolean' && orderBy == 1 ? "&sortBy=boolean&orderBy=-1" : "&sortBy=boolean&orderBy=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'boolean' ? query.orderBy == 1 ? 'xmark' : 'check' : 'sort' %>"></i>
-                                Boolean
+
+                            Float
                             </a>
                         </th>
+                        <th>
+                            Date
+                            </a>
+                        </th>
+                        <th>
 
-
-                        <th>Actions</th>
+                            Boolean
+                            </a>
+                        </th>
+                        <th>Actions </th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <% data.forEach((item, index) => { %>
+                    <% data.forEach((item, index)=> { %>
                         <tr>
-                            <!-- <td>
-                                <%=item._id%>
-                            </td> -->
-                            <td>
-                                <%=item.string%>
-                            </td>
-                            <td>
-                                <%=item.integer%>
-                            </td>
-                            <td>
-                                <%=item.float%>
-                            </td>
-                            <td>
-                                <%=moment(item.date).format('DD/MMMM/YYYY')%>
-                            </td>
-                            <td>
-                                <%= item.boolean==1 ? 'True' : 'False' %>
-                            </td>
-                            <td>
-                                <a href="/edit/<%= item._id %>" class="btn btn-success"><i
-                                        class="fa-solid fa-pencil"></i></a>
-                                <a href="/delete/<%= item._id %>" class="btn btn-danger"><i
-                                        class="fa-solid fa-trash"></i></a>
-                            </td>
+                            <div>
+                                <td>
+                                    <%=item._id %>
+                                </td>
+
+                                <td>
+                                    <%= item.string %>
+                                </td>
+                                <td>
+                                    <%= item.integer %>
+                                </td>
+                                <td>
+                                    <%= item.float %>
+                                </td>
+                                <td>
+                                    <%= moment(item.date).format('DD MMM YYYY'); %>
+                                </td>
+                                <td>
+                                    <%= item.boolean %>
+                                </td>
+                                <td>
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <a class="btn btn-success" href="/edit/<%= item.id %>"><i class="fa-solid fa-pencil" title="Edit"></i></a>
+                                        <a class="btn btn-danger" href="/delete/<%= item.id %>"
+                                            href="delete_methode_link"
+                                            onclick="return confirm('Are you sure you want to delete?');">  <i class="fa-solid fa-trash-can" title="Delete"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </div>
                         </tr>
                         <% }) %>
                 </tbody>
             </table>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-md-2">
-                        <a href="/add" class="btn btn-primary"><i class="fa-solid fa-square-plus"></i> ADD</a>
-                    </div>
-                    <div class="col-md-10">
-                        <nav aria-label="...">
-                            <ul class="pagination">
-
-                                <li class="page-item">
-                                    <%if (page !=1 ) { %>
-                                        <a class="page-link"
-                                            href="<%=url.replace(`page=${page}`,`page=${parseInt(page)-1}`)%>">Previous</a>
-                                        <% } %>
-                                </li>
-
-                                <% for (let i = 1; i <=pages; i++) { %>
-                                    <li class="page-item <%= i == page ? 'active' : '' %>" aria-current="page">
-                                        <a class="page-link" href="<%=url.replace(`page=${page}`,`page=${i}`) %>">
-                                            <%= i %>
-                                        </a>
-                                    </li>
-                                    <% } %>
-
-
-                                        <li class="page-item">
-                                            <%if (page <=pages && page !=pages) { %>
-                                                <a class="page-link"
-                                                    href="<%=url.replace(`page=${page}`,`page=${parseInt(page)+1}`)%>">Next</a>
-                                                <% } %>
-                                        </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
         </div>
+
+        <div class="d-grid gap-2 d-md-block">
+            <a class="btn btn-primary fa-solid fa-square-plus" href="/add" >Add</a>
+        </div>
+
+
     </div>
     <%- include('partials/footer') %>

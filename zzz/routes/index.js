@@ -35,7 +35,7 @@ module.exports = function (db) {
     //   params.push({ "_id": ObjectId(`${req.params.id}`) })
     // }
     if (req.query.string && req.query.stringFilters == 'on') {
-      params.push(`"string" : ${req.query.string}`)
+      params.push["string"] = new RegExp(`${req.query.string}`, 'i')
     }
     if (req.query.integer && req.query.integerFilters == 'on') {
       params.push(`"integer": ${req.query.integer}`)
@@ -58,25 +58,75 @@ module.exports = function (db) {
       params.push(`"boolean" : ${req.query.boolean}`)
     }
 
-    db.collection("breads").find().toArray(function (err, result) {
+    db.collection("breads").find(noSql).toArray(function (err, result) {
       if (err) {
         console.error(err)
       }
       var total = result.length
       const pages = Math.ceil(total / limit)
-      db.collection("breads").find(noSql).skip(offset).limit(limit).collation({'locale':'en'}).sort(sortMode).toArray((err, data) => {
+      db.collection("breads").find(noSql).skip(offset).limit(limit).collation({ 'locale': 'en' }).sort(sortMode).toArray((err, data) => {
         if (err) {
           console.log(err)
         }
-        res.render('list', { data, pages, page, filter, query: req.query, sortBy, orderBy, moment, url})
+        res.render('list', { data, pages, page, filter, query: req.query, sortBy, orderBy, moment, url })
       })
     })
-    
+
   });
   router.get('/add', (req, res) => {
-    res.render
+    res.render('add')
   })
-  
+  router.post('/add', (req, res) => {
+    var myobj = {
+      string: `${req.body.string}`,
+      integer: parseInt(req.body.integer),
+      float: JSON.parse(req.body.float),
+      date: new Date(`${req.body.date}`),
+      boolean: JSON.parse(req.body.boolean)
+    }
+    console.log(myobj)
+    db.collection("breads").insertOne(myobj, function (err, res) {
+      if (err) throw err
+    })
+    res.redirect('/')
+  })
+  router.get('/delete/:id', (req, res) => {
+    db.collection("breads").deleteOne({ "_id": ObjectId(`${req.params.id}`) }, (err) => {
+      if (err) {
+        console.error(err)
+      }
+    })
+    res.redirect('/')
+  })
+
+  router.get('/edit/:id', (req, res) => {
+    db.collection("breads").find({ "_id": ObjectId(`${req.params.id}`) }).toArray((err, data) => {
+      if (err) {
+        console.error(err)
+      }
+      res.render('edit', { item: data[0], moment })
+    })
+  })
+
+  router.post('/edit/:id', (req, res) => {
+    var myobj = {
+      string: `${req.body.string}`,
+      integer: parseInt(req.body.integer),
+      float: JSON.parse(req.body.float),
+      date: new Date(`${req.body.date}`),
+      boolean: JSON.parse(req.body.boolean)
+
+    }
+    db.collection("breads").updateOne({ "_id": ObjectId(`${req.params.id}`) }, { $set: myobj }, function (err, res) {
+      if (err) {
+        console.log(error)
+      }
+    })
+    res.redirect('/')
+  })
+
+
+
   return router;
 
 }
