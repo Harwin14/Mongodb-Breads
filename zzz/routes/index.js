@@ -101,8 +101,8 @@ module.exports = function (db) {
 
   router.get('/edit/:id', (req, res) => {
     db.collection("breads").find({ "_id": ObjectId(`${req.params.id}`) }).toArray((err, data) => {
-      if (err) {
-        console.error(err)
+      if (err) { 
+        console.log(err)
       }
       res.render('edit', { item: data[0], moment })
     })
@@ -115,8 +115,8 @@ module.exports = function (db) {
       float: JSON.parse(req.body.float),
       date: new Date(`${req.body.date}`),
       boolean: JSON.parse(req.body.boolean)
-
     }
+    console.log(myobj)
     db.collection("breads").updateOne({ "_id": ObjectId(`${req.params.id}`) }, { $set: myobj }, function (err, res) {
       if (err) {
         console.log(error)

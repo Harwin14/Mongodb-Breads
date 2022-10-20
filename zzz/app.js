@@ -56,7 +56,7 @@ main().then((db) => {
       res.render('error');
     });
 
-    const debug = require('debug')('zz:server');
+    const debug = require('debug')('mongo:server');
     const http = require('http');
 
     /**

@@ -67,8 +67,8 @@
                         <div class="col-sm-8">
                             <select class="form-control" class="input" name="boolean" id="filters">
                                 <option value="" selected disabled> Choose the Boolean...</option>
-                                <option value="true" <%=query.boolean=='true' ? 'selected' : '' %>>true</option>
-                                <option value="false" <%=query.boolean=='false' ? 'selected' : '' %>>false</option>
+                                <option value=1 <%=query.boolean==1 ? 'selected' : '' %>>true</option>
+                                <option value=0 <%=query.boolean==0 ? 'selected' : '' %>>false</option>
                             </select>
                         </div>
                     </div>
@@ -139,12 +139,12 @@
                                     <%= moment(item.date).format('DD MMM YYYY'); %>
                                 </td>
                                 <td>
-                                    <%= item.boolean %>
+                                    <%= item.boolean%>
                                 </td>
                                 <td>
                                     <div class="d-grid gap-2 d-md-block">
-                                        <a class="btn btn-success" href="/edit/<%= item.id %>"><i class="fa-solid fa-pencil" title="Edit"></i></a>
-                                        <a class="btn btn-danger" href="/delete/<%= item.id %>"
+                                        <a class="btn btn-success" href="/edit/<%= item._id %>"><i class="fa-solid fa-pencil" title="Edit"></i></a>
+                                        <a class="btn btn-danger" href="/delete/<%= item._id %>"
                                             href="delete_methode_link"
                                             onclick="return confirm('Are you sure you want to delete?');">  <i class="fa-solid fa-trash-can" title="Delete"></i>
                                         </a>
