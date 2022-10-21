@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 
 
-    <div class="card " style="background-color: #edf7fa;">
+    <div class="card " style="background-color: #edf7fa; border-style:double ;">
         <div class="card-header text-center" >
             <h1>BREAD(Browse, Read, Edit, Add, Delete)</h1>
         </div>
@@ -11,7 +11,9 @@
             <!-- =================FORM================= -->
             <form action="" method="get">
                 <input type="hidden" name="page" value="1">
+
                 <div>
+                    
                     <!-- =========STRING========= -->
                     <div class="row mb-3  form-switch">
                         <input class="form-check-input" name="stringFilters" type="checkbox" id="filters"
@@ -86,10 +88,10 @@
         <!-- =============tabel================== -->
         <div>
             <table class="table table-striped">
-                <thead>
+                <thead style="background-color: rgb(176, 250, 250);">
                     <tr>
                         <th>
-                            ID
+                            No
                         </th>
                         <th>
 
@@ -123,7 +125,7 @@
                         <tr>
                             <div>
                                 <td>
-                                    <%=item._id %>
+                                    <%= offset + index + 1 %>
                                 </td>
 
                                 <td>
@@ -156,11 +158,29 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="card-footer">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item page-item<%= page == 1 ? ' disabled' : '' %>">
+                    <a class="page-link" href="/?page=<%= page - 1 %>" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <% for(let i=1; i <= pages; i++){ %>
+                  <li class="page-item<%= page == i ? ' active' : '' %>"><a class="page-link" href="/?page=<%= i %>"><%= i %></a></li>
+                  <% } %>
+                  <li class="page-item page-item<%= page == pages ? ' disabled' : '' %>">
+                    <a class="page-link" href="/?page=<%= page + 1 %>" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
         <div class="d-grid gap-2 d-md-block">
             <a class="btn btn-primary fa-solid fa-square-plus" href="/add" >Add</a>
         </div>
 
-
+</div>
     </div>
-    <%- include('partials/footer') %>
+    <%- include('partials/footer') %> 
+

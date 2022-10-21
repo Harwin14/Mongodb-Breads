@@ -8,7 +8,8 @@ module.exports = function (db) {
 
   router.get('/', async function (req, res,) {
     const url = req.url == '/' ? '/?page=1' : req.url
-    const page = req.query.page || 1
+    let page = req.query.page || 1
+    page = Number(page)
     const limit = 3;
     const offset = (page - 1) * limit
     const params = []
@@ -35,12 +36,12 @@ module.exports = function (db) {
     //   params.push({ "_id": ObjectId(`${req.params.id}`) })
     // }
     if (req.query.string && req.query.stringFilters == 'on') {
-      params.push["string"] = new RegExp(`${req.query.string}`, 'i')
+      noSql["string"] = new RegExp(`${req.query.string}`, 'i')
     }
     if (req.query.integer && req.query.integerFilters == 'on') {
       params.push(`"integer": ${req.query.integer}`)
     }
-    if (req.query.float && req.query.floatilters == 'on') {
+    if (req.query.float && req.query.floatFilters == 'on') {
       params.push(`"float": ${req.query.float}`)
     }
     if (req.query.dateFilters == 'on') {
@@ -62,13 +63,14 @@ module.exports = function (db) {
       if (err) {
         console.error(err)
       }
-      var total = result.length
+      const total = result.length
       const pages = Math.ceil(total / limit)
+
       db.collection("breads").find(noSql).skip(offset).limit(limit).collation({ 'locale': 'en' }).sort(sortMode).toArray((err, data) => {
         if (err) {
           console.log(err)
         }
-        res.render('list', { data, pages, page, filter, query: req.query, sortBy, orderBy, moment, url })
+        res.render('list', { data, pages, page, filter, query: req.query, sortBy, orderBy, moment, offset,  url })
       })
     })
 
@@ -90,6 +92,7 @@ module.exports = function (db) {
     })
     res.redirect('/')
   })
+
   router.get('/delete/:id', (req, res) => {
     db.collection("breads").deleteOne({ "_id": ObjectId(`${req.params.id}`) }, (err) => {
       if (err) {
@@ -103,12 +106,13 @@ module.exports = function (db) {
     db.collection("breads").find({ "_id": ObjectId(`${req.params.id}`) }).toArray((err, data) => {
       if (err) { 
         console.log(err)
-      }
+      } //console.log(data[0])
       res.render('edit', { item: data[0], moment })
     })
   })
 
   router.post('/edit/:id', (req, res) => {
+    //const { string, integer, float, date, boolean } = req.body
     var myobj = {
       string: `${req.body.string}`,
       integer: parseInt(req.body.integer),
