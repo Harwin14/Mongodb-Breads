@@ -69,8 +69,8 @@
                         <div class="col-sm-8">
                             <select class="form-control" class="input" name="boolean" id="filters">
                                 <option value="" selected disabled> Choose the Boolean...</option>
-                                <option value=1 <%=query.boolean==1 ? 'selected' : '' %>>true</option>
-                                <option value=0 <%=query.boolean==0 ? 'selected' : '' %>>false</option>
+                                <option value=true <%=query.boolean=="true" ? 'selected' : '' %>>true</option>
+                                <option value=false <%=query.boolean=="false" ? 'selected' : '' %>>false</option>
                             </select>
                         </div>
                     </div>
@@ -162,15 +162,15 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item page-item<%= page == 1 ? ' disabled' : '' %>">
-                    <a class="page-link" href="/?page=<%= page - 1 %>" aria-label="Previous">
+                    <a class="page-link" href=" <%= url.replace(`page=${page}`,`page=${page - 1}`) %>" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
                   <% for(let i=1; i <= pages; i++){ %>
-                  <li class="page-item<%= page == i ? ' active' : '' %>"><a class="page-link" href="/?page=<%= i %>"><%= i %></a></li>
+                  <li class="page-item<%= page == i ? ' active' : '' %>"><a class="page-link" href="  <%= url.replace(`page=${page}`,`page=${i}`) %>"> <%= i %></a></li>
                   <% } %>
                   <li class="page-item page-item<%= page == pages ? ' disabled' : '' %>">
-                    <a class="page-link" href="/?page=<%= page + 1 %>" aria-label="Next">
+                    <a class="page-link" href=" <%= url.replace(`page=${page}`,`page=${page + 1}`) %>" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
