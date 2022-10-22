@@ -7,14 +7,15 @@
                 </h1>
             </div>
             <div class="card-body">
-                <form action="" class="get">
+                <form action="" method="get">
+                    <input type="hidden" name="page" value="1">
                     <div class="row mb-3 form-switch">
                         <input class="form-check-input" type="checkbox" name="stringFilters"
                             <%=query.stringFilters=='on' ? 'checked' : '' %> >
                         <label for="string" class="form-check-label col-sm-2">String</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="string" placeholder="String"
-                                value="<%=query.string != 'undefined' ? query.string : ''%>">
+                                value="<%= query.string %>">
                         </div>
                     </div>
 
@@ -24,7 +25,7 @@
                         <label for="integer" class="form-check-label col-sm-2">Integer</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" name="integer" placeholder="Integer"
-                                value="<%=query.integer%>">
+                                value="<%= query.integer %>">
                         </div>
                     </div>
 
@@ -34,7 +35,7 @@
                         <label for="float" class="form-check-label col-sm-2">Float</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" name="float" placeholder="Float" step="0.005"
-                                value="<%=query.float%>">
+                                value="<%= query.float %>">
                         </div>
                     </div>
 
@@ -47,86 +48,77 @@
                                 value="<%=query.startDate%>">
                             <label class="col-sm-2 col-form-label">to</label>
                             <input type="date" class="form-control" name="endDate" placeholder="Date"
-                                value="<%=query.endDate%>">
+                                value="<%= query.endDate %>">
                         </div>
                     </div>
 
                     <div class="row mb-3 form-switch">
                         <input class="form-check-input" type="checkbox" name="booleanFilters"
-                            <%=query.floatFilters=='on' ? 'checked' : '' %> >
+                            <%=query.booleanFilters=='on' ? 'checked' : '' %> >
                         <label for="boolean" class="form-check-label col-sm-2">boolean</label>
                         <div class="col-sm-10">
                             <select id="boolean" name="boolean" class="form-select">
                                 <option value="" selected disabled>Choose Boolean ... </option>
-                                <option value="True" <%=query.boolean=="True" ? ' selected ' : '' %>>True</option>
-                                <option value="False" <%=query.boolean=="False" ? ' selected ' : '' %>>True</option>
+                                <option value=True <%=query.boolean=="True" ? ' selected ' : '' %>>True</option>
+                                <option value=False <%=query.boolean=="False" ? ' selected ' : '' %>>False</option>
                             </select>
                         </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                            <a href="/" class="btn btn-warning">Reset</a>
-                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <a href="/" class="btn btn-warning">Reset</a>
+                    </div>
                 </form>
                 <br>
             </div>
 
-            <table class="" <table class="table table-striped">
-
+            <table class="" class="table table-striped">
                 <thead>
                     <tr>
                         <th>
-                            ID
+                            No
                         </th>
 
 
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'string' && sortMode ==1 ? "
-                                &sortBy=string&sortMode=-1" : "&sortBy=string&sortMode=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'string' ? query.sortMode ==1 ? 'arrow-up-a-z' : 'arrow-up-z-a' : 'sort' %>"></i>
-                                String
-                            </a>
+                            <a
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=string`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="<%= sortBy == 'string' ? orderBy == 'asc' ? 'fa-duotone fa-sort-up' : 'fa-duotone fa-sort-down' : 'fa-solid fa-sort' %>"></i>
+                                    string</a>
+                      
                         </th>
 
 
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'integer' && sortMode ==1 ? "
-                                &sortBy=integer&sortMode=-1" : "&sortBy=integer&sortMode=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'integer' ? query.sortMode ==1 ? 'arrow-up-1-9' : 'arrow-up-9-1' : 'sort' %>"></i>
-                                Integer
-                            </a>
+                            <a
+                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=integer`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                class="fa-solid fa-<%= sortBy == 'integer' ? orderBy == 'asc' ? 'sort-up' : 'sort-down' : 'sort' %>"></i>
+                                integer</a>
                         </th>
 
 
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'float' && sortMode == 1 ? "
-                                &sortBy=float&sortMode=-1" : "&sortBy=float&sortMode=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'float' ? query.sortMode == 1 ? 'arrow-up-1-9' : 'arrow-up-9-1' : 'sort' %>"></i>
-                                Float
-                            </a>
+                            <a
+                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=float`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                class="fa-solid fa-<%= sortBy == 'float' ? orderBy == 'asc' ? 'sort-up' : 'sort-down' : 'sort' %>"></i>
+                                float</a>
                         </th>
 
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'date' && sortMode == 1 ? "
-                                &sortBy=date&sortMode=-1" : "&sortBy=date&sortMode=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'date' ? query.sortMode == 1 ? 'arrow-up-short-wide' : 'arrow-up-wide-short' : 'sort' %>"></i>
-                                Date
-                            </a>
+                            <a
+                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=date`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                class="fa-solid fa-<%= sortBy == 'date' ? orderBy == 'asc' ? 'sort-up' : 'sort-down' : 'sort' %>"></i>
+                                date</a>
                         </th>
+
 
 
                         <th>
-                            <a href="<%=`/?page=${page}${filter}`%><%= sortBy == 'boolean' && sortMode == 1 ? "
-                                &sortBy=boolean&sortMode=-1" : "&sortBy=boolean&sortMode=1" %>">
-                                <i
-                                    class="fa-solid fa-<%= query.sortBy == 'boolean' ? query.sortMode == 1 ? 'xmark' : 'check' : 'sort' %>"></i>
-                                Boolean
-                            </a>
+                            <a
+                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=boolean`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                class="fa-solid fa-<%= sortBy == 'boolean' ? orderBy == 'asc' ? 'sort-up' : 'sort-down' : 'sort' %>"></i>
+                                boolean</a>
                         </th>
-
 
                         <th>Actions</th>
                     </tr>
@@ -148,48 +140,58 @@
                                 <%=item.float%>
                             </td>
                             <td>
-                                <%=moment(item.date).format('DD MM YYYY')%>
+                                <%=moment(item.date).format('DD MMM YYYY')%>
                             </td>
                             <td>
                                 <%= item.boolean%>
                             </td>
                             <td>
-                                <a href="/edit/<%= item._id %>" class="btn btn-success"><i
-                                        class="fa-solid fa-pencil"></i></a>
-                                <a href="/delete/<%= item._id %>" class="btn btn-danger"><i
-                                        class="fa-solid fa-trash"></i></a>
+                                <div class="d-grid gap-2 d-md-block">
+                                    <a class="btn btn-success" href="/edit/<%= item._id %>"><i
+                                            class="fa-solid fa-pencil" title="Edit"></i></a>
+                                    <a class="btn btn-danger" href="/delete/<%= item._id %>" href="delete_methode_link"
+                                        onclick="return confirm('Are you sure you want to delete?');"> <i
+                                            class="fa-solid fa-trash-can" title="Delete"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
-    
+
                         <% }) %>
                 </tbody>
             </table>
             <div class="card-footer">
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="/add" class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> ADD</a>
+                        <a href="/add" class="btn btn-primary"><i class="fa-solid fa-square-plus"></i> ADD</a>
                     </div>
                     <div class="col-md-10">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                              <li class="page-item page-item<%= page == 1 ? ' disabled' : '' %>">
-                                <a class="page-link" href=" <%= url.replace(`page=${page}`,`page=${page - 1}`) %>" aria-label="Previous">
-                                  <span aria-hidden="true">&laquo;</span>
-                                </a>
-                              </li>
-                              <% for(let i=1; i <= pages; i++){ %>
-                              <li class="page-item<%= page == i ? ' active' : '' %>"><a class="page-link" href="  <%= url.replace(`page=${page}`,`page=${i}`) %>"> <%= i %></a></li>
-                              <% } %>
-                              <li class="page-item page-item<%= page == pages ? ' disabled' : '' %>">
-                                <a class="page-link" href=" <%= url.replace(`page=${page}`,`page=${page + 1}`) %>" aria-label="Next">
-                                  <span aria-hidden="true">&raquo;</span>
-                                </a>
-                              </li>
+                                <li class="page-item page-item<%= page == 1 ? ' disabled' : '' %>">
+                                    <a class="page-link" href=" <%= url.replace(`page=${page}`,`page=${page - 1}`) %>"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <% for(let i=1; i <=pages; i++){ %>
+                                    <li class="page-item<%= page == i ? ' active' : '' %>"><a class="page-link"
+                                            href="  <%= url.replace(`page=${page}`,`page=${i}`) %>">
+                                            <%= i %>
+                                        </a></li>
+                                    <% } %>
+                                        <li class="page-item page-item<%= page == pages ? ' disabled' : '' %>">
+                                            <a class="page-link"
+                                                href=" <%= url.replace(`page=${page}`,`page=${page + 1}`) %>"
+                                                aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
                             </ul>
-                          </nav>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
