@@ -67,9 +67,11 @@
                             </select>
                         </div>
                     </div>
-                <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary " type="submit"><i class="fa-solid fa-magnifying-glass" title="Search"></i></button> 
-                        <button class="btn btn-warning" type="submit" href="/"><i class="fa-sharp fa-solid fa-rotate-left" title="Reset"></i></button>
+                    <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-primary " type="submit"><i class="fa-solid fa-magnifying-glass"
+                                title="Search"></i></button>
+                        <button class="btn btn-warning" type="submit" href="/"><i
+                                class="fa-sharp fa-solid fa-rotate-left" title="Reset"></i></button>
                     </div>
                 </form>
                 <br>
@@ -82,44 +84,39 @@
                             No
                         </th>
 
-
                         <th>
                             <a
                                 href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=string`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
                                     class="fa-solid fa-<%= sortBy == 'string' ? orderBy == 'asc' ? 'arrow-up-a-z' : 'arrow-down-z-a' : 'sort' %>"></i>
-                                    string</a>
-                      
-                        </th>
+                                string</a>
 
+                        </th>
 
                         <th>
                             <a
-                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=integer`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
-                                class="fa-solid fa-<%= sortBy == 'integer' ? orderBy == 'asc' ? 'arrow-up-1-9' : 'arrow-down-9-1' : 'sort' %>"></i>
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=integer`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'integer' ? orderBy == 'asc' ? 'arrow-up-1-9' : 'arrow-down-9-1' : 'sort' %>"></i>
                                 integer</a>
                         </th>
 
-
                         <th>
                             <a
-                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=float`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
-                                class="fa-solid fa-<%= sortBy == 'float' ? orderBy == 'asc' ? 'arrow-up-1-9' : 'arrow-down-9-1' : 'sort' %>"></i>
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=float`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'float' ? orderBy == 'asc' ? 'arrow-up-1-9' : 'arrow-down-9-1' : 'sort' %>"></i>
                                 float</a>
                         </th>
 
                         <th>
                             <a
-                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=date`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
-                                class="fa-solid fa-<%= sortBy == 'date' ? orderBy == 'asc' ? 'arrow-up-short-wide' : 'arrow-down-wide-short' : 'sort' %>"></i>
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=date`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'date' ? orderBy == 'asc' ? 'arrow-up-short-wide' : 'arrow-down-wide-short' : 'sort' %>"></i>
                                 date</a>
                         </th>
 
-
-
                         <th>
                             <a
-                            href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=boolean`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
-                                class="fa-solid fa-<%= sortBy == 'boolean' ? orderBy == 'asc' ? 'xmark' : 'check' : 'sort' %>"></i>
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=boolean`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'boolean' ? orderBy == 'asc' ? 'xmark' : 'check' : 'sort' %>"></i>
                                 boolean</a>
                         </th>
 
