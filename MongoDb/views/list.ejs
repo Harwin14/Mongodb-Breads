@@ -1,0 +1,197 @@
+<%- include('partials/header') %>
+    <div class="container mt-3">
+        <div class="card border-dark">
+            <div class="card-header text-center">
+                <h1>
+                    BREADS
+                </h1>
+                <h2>
+                    (Browse, Read, Edit, Add, Delete, Sort)
+                </h2>
+            </div>
+            <div class="card-body">
+                <form action="" method="get">
+                    <input type="hidden" name="page" value="1">
+                    <div class="row mb-3 form-switch">
+                        <input class="form-check-input" type="checkbox" name="stringFilters"
+                            <%=query.stringFilters=='on' ? 'checked' : '' %> >
+                        <label for="string" class="form-check-label col-sm-2">String</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="string" placeholder="String"
+                                value="<%= query.string %>">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 form-switch">
+                        <input class="form-check-input" type="checkbox" name="integerFilters"
+                            <%=query.integerFilters=='on' ? 'checked' : '' %> >
+                        <label for="integer" class="form-check-label col-sm-2">Integer</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="integer" placeholder="Integer"
+                                value="<%= query.integer %>">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 form-switch">
+                        <input class="form-check-input" type="checkbox" name="floatFilters" <%=query.floatFilters=='on'
+                            ? 'checked' : '' %> >
+                        <label for="float" class="form-check-label col-sm-2">Float</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="float" placeholder="Float" step="0.005"
+                                value="<%= query.float %>">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 form-switch">
+                        <input class="form-check-input" type="checkbox" name="dateFilters" <%=query.dateFilters=='on'
+                            ? 'checked' : '' %> >
+                        <label for="date" class="form-check-label col-sm-2">Date</label>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" name="startDate" placeholder="Date"
+                                value="<%=query.startDate%>">
+                            <label class="col-sm-2 col-form-label">to</label>
+                            <input type="date" class="form-control" name="endDate" placeholder="Date"
+                                value="<%= query.endDate %>">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 form-switch">
+                        <input class="form-check-input" type="checkbox" name="booleanFilters"
+                            <%=query.booleanFilters=='on' ? 'checked' : '' %> >
+                        <label for="boolean" class="form-check-label col-sm-2">boolean</label>
+                        <div class="col-sm-10">
+                            <select id="boolean" name="boolean" class="form-select">
+                                <option value="" selected disabled>Choose Boolean ... </option>
+                                <option value=True <%=query.boolean=="True" ? ' selected ' : '' %>>True</option>
+                                <option value=False <%=query.boolean=="False" ? ' selected ' : '' %>>False</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-primary " type="submit"><i class="fa-solid fa-magnifying-glass"
+                                title="Search"></i></button>
+                        <button class="btn btn-warning" type="submit" href="/"><i
+                                class="fa-sharp fa-solid fa-rotate-left" title="Reset"></i></button>
+                    </div>
+                </form>
+                <br>
+            </div>
+
+            <table class="table table-striped card-body">
+                <thead class="thead">
+                    <tr>
+                        <th>
+                            No
+                        </th>
+
+                        <th>
+                            <a
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=string`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'string' ? orderBy == 'asc' ? 'arrow-up-a-z' : 'arrow-down-z-a' : 'sort' %>"></i>
+                                string</a>
+
+                        </th>
+
+                        <th>
+                            <a
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=integer`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'integer' ? orderBy == 'asc' ? 'arrow-up-1-9' : 'arrow-down-9-1' : 'sort' %>"></i>
+                                integer</a>
+                        </th>
+
+                        <th>
+                            <a
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=float`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'float' ? orderBy == 'asc' ? 'arrow-up-1-9' : 'arrow-down-9-1' : 'sort' %>"></i>
+                                float</a>
+                        </th>
+
+                        <th>
+                            <a
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=date`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'date' ? orderBy == 'asc' ? 'arrow-up-short-wide' : 'arrow-down-wide-short' : 'sort' %>"></i>
+                                date</a>
+                        </th>
+
+                        <th>
+                            <a
+                                href="<%=url.replace(`sortBy=${sortBy}`, `sortBy=boolean`).replace(`orderBy=${orderBy}`,`orderBy=${orderBy == 'asc' ? 'desc' : 'asc'}`) %>"><i
+                                    class="fa-solid fa-<%= sortBy == 'boolean' ? orderBy == 'asc' ? 'xmark' : 'check' : 'sort' %>"></i>
+                                boolean</a>
+                        </th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% data.forEach((item, index)=> { %>
+                        <tr>
+                            <td>
+                                <%= offset + index +1 %>
+                            </td>
+                            <td>
+                                <%=item.string%>
+                            </td>
+                            <td>
+                                <%=item.integer%>
+                            </td>
+                            <td>
+                                <%=item.float%>
+                            </td>
+                            <td>
+                                <%=moment(item.date).format('DD MMM YYYY')%>
+                            </td>
+                            <td>
+                                <%= item.boolean%>
+                            </td>
+                            <td>
+                                <div class="d-grid gap-2 d-md-block">
+                                    <a class="btn btn-success" href="/edit/<%= item._id %>"><i
+                                            class="fa-solid fa-pencil" title="Edit"></i></a>
+                                    <a class="btn btn-danger" href="/delete/<%= item._id %>" href="delete_methode_link"
+                                        onclick="return confirm('Are you sure you want to delete?');"> <i
+                                            class="fa-solid fa-trash-can" title="Delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <% }) %>
+                </tbody>
+            </table>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a href="/add" class="btn btn-primary"><i class="fa-solid fa-square-plus"></i> ADD</a>
+                    </div>
+                    <div class="col-md-10">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item page-item<%= page == 1 ? ' disabled' : '' %>">
+                                    <a class="page-link" href=" <%= url.replace(`page=${page}`,`page=${page - 1}`) %>"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <% for(let i=1; i <=pages; i++){ %>
+                                    <li class="page-item<%= page == i ? ' active' : '' %>"><a class="page-link"
+                                            href="  <%= url.replace(`page=${page}`,`page=${i}`) %>">
+                                            <%= i %>
+                                        </a></li>
+                                    <% } %>
+                                        <li class="page-item page-item<%= page == pages ? ' disabled' : '' %>">
+                                            <a class="page-link"
+                                                href=" <%= url.replace(`page=${page}`,`page=${page + 1}`) %>"
+                                                aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>
