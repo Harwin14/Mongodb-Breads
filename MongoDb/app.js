@@ -14,7 +14,7 @@ async function main() {
   // Database Name
   const dbName = 'datadb';
   await client.connect();
-  console.log('Connected successfully to server');
+  console.log('running on port 3000');
   const db = client.db(dbName);
 
   return db
@@ -63,7 +63,7 @@ main().then((db) => {
      * Get port from environment and store in Express.
      */
 
-    const port = normalizePort(process.env.PORT || '3001');
+    const port = normalizePort(process.env.PORT || '3000');
     app.set('port', port);
 
     /**
@@ -145,6 +145,7 @@ main().then((db) => {
     console.log('gagal bruh', err)
   })
 // sudo kill -9 `sudo lsof -t -i:3000`
+//db.breads.find().pretty()
 
 
 
